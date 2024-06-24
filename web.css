@@ -1,13 +1,14 @@
 :root {
-    --primary-color: #00a8ff;
-    --secondary-color: #192a56;
-    --accent-color: #ffa502;
+    --primary-color: #00ff00;
+    --secondary-color: #001f3f;
+    --accent-color: #ff4136;
     --text-color: #dcdde1;
-    --bg-color: #0c2461;
+    --bg-color: #111111;
+    --font-family-mono: 'Roboto Mono', monospace;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family-mono);
     line-height: 1.6;
     color: var(--text-color);
     margin: 0;
@@ -37,11 +38,11 @@ header {
 }
 
 h1 {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-family-mono);
     font-size: 3rem;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(0, 168, 255, 0.7);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
 }
 
 .glitch {
@@ -62,14 +63,14 @@ h1 {
 
 .glitch::before {
     left: 2px;
-    text-shadow: -2px 0 #ff00c1;
+    text-shadow: -2px 0 #ff00ff;
     clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
+    animation: glitch-anim 2s infinite linear alternate-reverse;
 }
 
 .glitch::after {
     left: -2px;
-    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff;
     animation: glitch-anim2 1s infinite linear alternate-reverse;
 }
 
@@ -116,7 +117,7 @@ nav ul li a:hover {
     background: var(--primary-color);
     color: var(--secondary-color);
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3);
 }
 
 nav ul li a i {
