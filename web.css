@@ -74,11 +74,9 @@ ul {
 a {
     color: #2196F3;
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #0D47A1;
     text-decoration: underline;
 }
 
@@ -93,10 +91,6 @@ footer {
 .fas, .fab {
     width: 20px;
     margin-right: 10px;
-}
-
-#publications li, #articles li {
-    margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
