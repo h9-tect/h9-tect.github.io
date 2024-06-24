@@ -1,70 +1,147 @@
+:root {
+    --primary-color: #00a8ff;
+    --secondary-color: #192a56;
+    --accent-color: #ffa502;
+    --text-color: #dcdde1;
+    --bg-color: #0c2461;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, var(--bg-color), var(--secondary-color));
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 header {
-    background-color: #2196F3;
-    color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
+.header-content {
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
-header p {
-    margin: 0;
-    font-size: 1.2rem;
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 168, 255, 0.7);
 }
 
-nav {
-    background-color: #333;
+.glitch {
+    font-size: 1.5rem;
+    position: relative;
+    color: var(--accent-color);
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(54px, 9999px, 34px, 0);
+    }
+    100% {
+        clip: rect(30px, 9999px, 78px, 0);
+    }
+}
+
+@keyframes glitch-anim2 {
+    0% {
+        clip: rect(62px, 9999px, 92px, 0);
+    }
+    100% {
+        clip: rect(32px, 9999px, 22px, 0);
+    }
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    border-bottom: 1px solid #555;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 2rem;
 }
 
 nav ul li a {
-    color: white;
+    color: var(--text-color);
     text-decoration: none;
-    padding: 0.8rem 1rem;
-    display: block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 nav ul li a:hover {
-    background-color: #555;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
 }
 
-main {
-    padding: 1rem;
+nav ul li a i {
+    margin-right: 5px;
 }
 
-section {
-    background-color: white;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-morphism:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
-    color: #2196F3;
-    border-bottom: 2px solid #2196F3;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 ul {
@@ -72,85 +149,112 @@ ul {
 }
 
 a {
-    color: #2196F3;
+    color: var(--accent-color);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+}
+
+.skills li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: var(--primary-color);
+}
+
+.timeline li {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline li::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-color);
+}
+
+.date {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.publication-list li, .article-list li {
+    margin-bottom: 10px;
+}
+
+.contact-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.contact-list li i {
+    margin-right: 10px;
+    color: var(--accent-color);
 }
 
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #333;
-    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
     font-size: 0.9rem;
 }
 
-.fas, .fab {
-    width: 20px;
-    margin-right: 10px;
-}
-
-@media (min-width: 768px) {
-    body {
-        display: grid;
-        grid-template-columns: 250px 1fr;
-        grid-template-areas: 
-            "header header"
-            "nav main"
-            "footer footer";
-        min-height: 100vh;
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
     }
 
-    header {
-        grid-area: header;
+    h1 {
+        font-size: 2rem;
     }
 
-    nav {
-        grid-area: nav;
-        height: 100%;
+    .glitch {
+        font-size: 1.2rem;
     }
 
-    main {
-        grid-area: main;
-        padding: 2rem;
-    }
-
-    footer {
-        grid-area: footer;
-    }
-
-    header h1 {
-        font-size: 2.5rem;
-    }
-
-    header p {
-        font-size: 1.5rem;
-    }
-
-    nav ul li {
-        border-bottom: none;
+    nav ul {
+        flex-direction: column;
     }
 
     nav ul li a {
-        padding: 1rem;
-    }
-
-    section {
-        margin-bottom: 2rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    body {
-        grid-template-columns: 300px 1fr;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    main {
-        padding: 3rem;
+        display: block;
+        text-align: center;
     }
 }
