@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embeddings in Arabic NLP - Hesham Haroon</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tomorrow-night.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Hesham Haroon</h1>
+                <p class="glitch" data-text="NLP Engineer">NLP Engineer</p>
+            </div>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="article" class="glass-morphism">
+                <div id="article-content" class="article-content">
+                    <!-- Article content will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2023 Hesham Haroon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Configure marked to use highlight.js for code highlighting
+        marked.setOptions({
+            highlight: function(code, lang) {
+                const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(code, { language }).value;
+            },
+            langPrefix: 'hljs language-'
+        });
+
+        // Fetch and display the README content
+        fetch('https://raw.githubusercontent.com/h9-tect/Articles_Arabic_NLP/main/Embedding.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('article-content').innerHTML = marked.parse(text);
+                // After parsing, initialize highlight.js
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching README:', error);
+                document.getElementById('article-content').innerHTML = '<p>Error loading article content. Please try again later.</p>';
+            });
+    </script>
+</body>
+</html>
