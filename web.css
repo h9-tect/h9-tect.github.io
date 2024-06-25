@@ -9,13 +9,17 @@
     --font-family-arabic: 'Noto Kufi Arabic', sans-serif;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: var(--font-family-mono);
     line-height: 1.6;
     color: var(--text-color);
-    margin: 0;
-    padding: 0;
-    background: var(--bg-color);
+    background: linear-gradient(135deg, var(--bg-color), #1a2f4e);
     min-height: 100vh;
 }
 
@@ -57,39 +61,34 @@ h1 {
     font-size: 1.5rem;
     position: relative;
     color: var(--accent-color);
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    animation: glitch 500ms infinite;
 }
 
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff00ff;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 2s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #00ffff, 2px 2px #ff00ff;
-    animation: glitch-anim2 1s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim {
-    0% { clip: rect(54px, 9999px, 34px, 0); }
-    100% { clip: rect(30px, 9999px, 78px, 0); }
-}
-
-@keyframes glitch-anim2 {
-    0% { clip: rect(62px, 9999px, 92px, 0); }
-    100% { clip: rect(32px, 9999px, 22px, 0); }
+@keyframes glitch {
+    0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                     -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                      0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+    14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                      -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                       0.025em 0.05em 0 rgba(0, 0, 255, 0.75); }
+    15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                       0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                      -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+    49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                       0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                      -0.05em -0.05em 0 rgba(0, 0, 255, 0.75); }
+    50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                       0.05em 0 0 rgba(0, 255, 0, 0.75),
+                       0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+    99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                       0.05em 0 0 rgba(0, 255, 0, 0.75),
+                       0 -0.05em 0 rgba(0, 0, 255, 0.75); }
+    100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                        -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                        -0.025em -0.05em 0 rgba(0, 0, 255, 0.75); }
 }
 
 nav ul {
@@ -215,95 +214,34 @@ a:hover {
     color: var(--accent-color);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const mainContent = document.getElementById('main-content');
-    const mainNav = document.getElementById('main-nav');
-    
-    // Store original content
-    const originalContent = mainContent.innerHTML;
+.publication-list, .article-list, .contact-list {
+    list-style-type: none;
+    padding: 0;
+}
 
-    // Configure marked to use highlight.js for code highlighting
-    marked.setOptions({
-        highlight: function(code, lang) {
-            if (lang && hljs.getLanguage(lang)) {
-                return hljs.highlight(lang, code).value;
-            } else {
-                return hljs.highlightAuto(code).value;
-            }
-        },
-        langPrefix: 'hljs language-'
-    });
+.publication-list li, .article-list li, .contact-list li {
+    margin-bottom: 10px;
+}
 
-    // Function to load article content
-    function loadArticle(url, lang) {
-        fetch(url)
-            .then(response => response.text())
-            .then(text => {
-                const htmlContent = marked(text);
-                mainContent.innerHTML = `
-                    <section id="article" class="glass-morphism ${lang === 'ar' ? 'arabic' : 'english'}">
-                        <a href="#" id="back-to-main" class="back-link"><span class="emoji">⬅️</span> Back to Main Page</a>
-                        <div class="article-content">${htmlContent}</div>
-                    </section>
-                `;
-                document.documentElement.lang = lang;
-                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-                document.body.classList.toggle('arabic', lang === 'ar');
-                document.body.classList.toggle('english', lang === 'en');
-                
-                // After parsing, initialize highlight.js
-                document.querySelectorAll('pre code').forEach((block) => {
-                    hljs.highlightBlock(block);
-                });
+.contact-list li {
+    display: flex;
+    align-items: center;
+}
 
-                // Add event listener to the back button
-                document.getElementById('back-to-main').addEventListener('click', showMainContent);
-            })
-            .catch(error => {
-                console.error('Error fetching article:', error);
-                mainContent.innerHTML = '<p>Error loading article content. Please try again later.</p>';
-            });
-    }
+.contact-list li .emoji {
+    margin-right: 10px;
+    color: var(--accent-color);
+}
 
-    // Function to show main content
-    function showMainContent(e) {
-        if (e) e.preventDefault();
-        mainContent.innerHTML = originalContent;
-        document.documentElement.lang = 'en';
-        document.documentElement.dir = 'ltr';
-        document.body.classList.remove('arabic', 'english');
-        setupEventListeners();
-    }
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-top: 2rem;
+}
 
-    // Function to setup event listeners
-    function setupEventListeners() {
-        // Add event listeners to navigation links
-        mainNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const sectionId = this.getAttribute('data-section');
-                document.querySelectorAll('section').forEach(section => {
-                    section.style.display = section.id === sectionId ? 'block' : 'none';
-                });
-            });
-        });
-
-        // Add event listeners to article links
-        document.querySelectorAll('.article-list a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const articleUrl = this.getAttribute('data-article');
-                const lang = this.getAttribute('data-lang');
-                loadArticle(articleUrl, lang);
-            });
-        });
-    }
-
-    // Initial setup
-    setupEventListeners();
-});
-
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -325,4 +263,14 @@ document.addEventListener('DOMContentLoaded', function() {
         display: block;
         text-align: center;
     }
+
+    .skills {
+        justify-content: center;
+    }
+}
+
+/* Styles for Arabic content if needed */
+.arabic {
+    font-family: var(--font-family-arabic);
+    direction: rtl;
     }
