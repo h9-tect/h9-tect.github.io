@@ -102,9 +102,9 @@
             
             <section id="articles" class="glass-morphism">
                 <h2>Articles</h2>
-                <ul class="article-list">
-                    <li><a href="https://github.com/h9-tect/Articles_Arabic_NLP/blob/main/Embedding.md" target="_blank">Embeddings in Arabic NLP</a></li>
-                </ul>
+                <div id="article-content" class="article-content">
+                    <!-- Article content will be loaded here -->
+                </div>
             </section>
             
             <section id="contact" class="glass-morphism">
@@ -113,8 +113,8 @@
                     <li><i class="fas fa-map-marker-alt"></i> Egypt</li>
                     <li><i class="fas fa-phone"></i> 01144223563</li>
                     <li><i class="fas fa-envelope"></i> heshamharoon19@gmail.com</li>
-                    <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/hesham-haroon" target="_blank">My LinkedIn (Hesham Haroon) </a></li>
-                    <li><i class="fab fa-Twitter"></i> <a href="https://x.com/Science_boy_H?t=Qb60V8YFpCwbtqRuGP5IwQ&s=09" target="_blank">My Twitter (X) </a></li>
+                    <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/hesham-haroon" target="_blank">My LinkedIn (Hesham Haroon)</a></li>
+                    <li><i class="fab fa-twitter"></i> <a href="https://x.com/Science_boy_H?t=Qb60V8YFpCwbtqRuGP5IwQ&s=09" target="_blank">My Twitter (X)</a></li>
                 </ul>
             </section>
         </main>
@@ -122,5 +122,19 @@
     <footer>
         <p>&copy; 2023 Hesham Haroon. All rights reserved.</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Fetch and display the README content
+        fetch('https://raw.githubusercontent.com/h9-tect/Articles_Arabic_NLP/main/Embedding.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('article-content').innerHTML = marked.parse(text);
+            })
+            .catch(error => {
+                console.error('Error fetching README:', error);
+                document.getElementById('article-content').innerHTML = '<p>Error loading article content. Please try again later.</p>';
+            });
+    </script>
 </body>
-                            </html>
+</html>
