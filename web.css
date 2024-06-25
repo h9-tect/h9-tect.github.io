@@ -38,7 +38,6 @@ header {
 }
 
 h1 {
-    font-family: var(--font-family-mono);
     font-size: 3rem;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
@@ -75,21 +74,13 @@ h1 {
 }
 
 @keyframes glitch-anim {
-    0% {
-        clip: rect(54px, 9999px, 34px, 0);
-    }
-    100% {
-        clip: rect(30px, 9999px, 78px, 0);
-    }
+    0% { clip: rect(54px, 9999px, 34px, 0); }
+    100% { clip: rect(30px, 9999px, 78px, 0); }
 }
 
 @keyframes glitch-anim2 {
-    0% {
-        clip: rect(62px, 9999px, 92px, 0);
-    }
-    100% {
-        clip: rect(32px, 9999px, 22px, 0);
-    }
+    0% { clip: rect(62px, 9999px, 92px, 0); }
+    100% { clip: rect(32px, 9999px, 22px, 0); }
 }
 
 nav ul {
@@ -143,6 +134,10 @@ h2 {
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
+}
+
+h3, h4 {
+    color: var(--accent-color);
 }
 
 ul {
@@ -209,53 +204,45 @@ a:hover {
     color: var(--accent-color);
 }
 
-.publication-list li, .article-list li {
-    margin-bottom: 10px;
+.article-content {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
-.contact-list {
-    list-style-type: none;
-    padding: 0;
+.article-content h1, .article-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
 }
 
-.contact-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.contact-list li i {
-    margin-right: 10px;
+.article-content h3, .article-content h4, .article-content h5, .article-content h6 {
     color: var(--accent-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-footer {
-    text-align: center;
-    padding: 1rem;
+.article-content p {
+    margin-bottom: 15px;
+}
+
+.article-content ul, .article-content ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.article-content li {
+    margin-bottom: 5px;
+}
+
+.article-content code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: var(--font-family-mono);
+}
+
+.article-content pre {
     background: rgba(0, 0, 0, 0.5);
-    color: var(--text-color);
-    font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .glitch {
-        font-size: 1.2rem;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li a {
-        display: block;
-        text-align: center;
-    }
-}
+    padding: 15px;
+    border-radius: 5px;
