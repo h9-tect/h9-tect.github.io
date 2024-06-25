@@ -215,116 +215,93 @@ a:hover {
     color: var(--accent-color);
 }
 
-.article-content {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    padding: 20px;
-    margin-top: 20px;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const mainContent = document.getElementById('main-content');
+    const mainNav = document.getElementById('main-nav');
+    
+    // Store original content
+    const originalContent = mainContent.innerHTML;
 
-.article-content h1,
-.article-content h2 {
-    color: var(--highlight-color);
-    margin-bottom: 15px;
-}
+    // Configure marked to use highlight.js for code highlighting
+    marked.setOptions({
+        highlight: function(code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+                return hljs.highlight(lang, code).value;
+            } else {
+                return hljs.highlightAuto(code).value;
+            }
+        },
+        langPrefix: 'hljs language-'
+    });
 
-.article-content h3,
-.article-content h4,
-.article-content h5,
-.article-content h6 {
-    color: var(--accent-color);
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
+    // Function to load article content
+    function loadArticle(url, lang) {
+        fetch(url)
+            .then(response => response.text())
+            .then(text => {
+                const htmlContent = marked(text);
+                mainContent.innerHTML = `
+                    <section id="article" class="glass-morphism ${lang === 'ar' ? 'arabic' : 'english'}">
+                        <a href="#" id="back-to-main" class="back-link"><span class="emoji">⬅️</span> Back to Main Page</a>
+                        <div class="article-content">${htmlContent}</div>
+                    </section>
+                `;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.body.classList.toggle('arabic', lang === 'ar');
+                document.body.classList.toggle('english', lang === 'en');
+                
+                // After parsing, initialize highlight.js
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
 
-.article-content p {
-    margin-bottom: 15px;
-}
+                // Add event listener to the back button
+                document.getElementById('back-to-main').addEventListener('click', showMainContent);
+            })
+            .catch(error => {
+                console.error('Error fetching article:', error);
+                mainContent.innerHTML = '<p>Error loading article content. Please try again later.</p>';
+            });
+    }
 
-.article-content ul,
-.article-content ol {
-    padding-left: 20px;
-    margin-bottom: 15px;
-}
+    // Function to show main content
+    function showMainContent(e) {
+        if (e) e.preventDefault();
+        mainContent.innerHTML = originalContent;
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        document.body.classList.remove('arabic', 'english');
+        setupEventListeners();
+    }
 
-.article-content li {
-    margin-bottom: 5px;
-}
+    // Function to setup event listeners
+    function setupEventListeners() {
+        // Add event listeners to navigation links
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.display = section.id === sectionId ? 'block' : 'none';
+                });
+            });
+        });
 
-.article-content code {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-family: var(--font-family-mono);
-}
+        // Add event listeners to article links
+        document.querySelectorAll('.article-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const articleUrl = this.getAttribute('data-article');
+                const lang = this.getAttribute('data-lang');
+                loadArticle(articleUrl, lang);
+            });
+        });
+    }
 
-.article-content pre {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
-    margin-bottom: 15px;
-}
-
-.article-content pre code {
-    background: none;
-    padding: 0;
-}
-
-.article-content blockquote {
-    border-left: 3px solid var(--accent-color);
-    padding-left: 15px;
-    margin-left: 0;
-    font-style: italic;
-}
-
-.article-content img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 15px 0;
-}
-
-.contact-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.contact-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.contact-list li .emoji {
-    margin-right: 10px;
-    color: var(--accent-color);
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    color: var(--text-color);
-    font-size: 0.9rem;
-}
-
-/* Styles for Arabic content */
-.arabic {
-    font-family: var(--font-family-arabic);
-    direction: rtl;
-}
-
-.arabic .article-content {
-    text-align: right;
-}
-
-.arabic .article-content blockquote {
-    border-left: none;
-    border-right: 3px solid var(--accent-color);
-    padding-left: 0;
-    padding-right: 15px;
-}
+    // Initial setup
+    setupEventListeners();
+});
 
 /* Responsive design */
 @media (max-width: 768px) {
