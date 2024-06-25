@@ -136,7 +136,7 @@ h2 {
     margin-bottom: 1rem;
 }
 
-h3, h4 {
+h3, h4, h5, h6 {
     color: var(--accent-color);
 }
 
@@ -152,66 +152,3 @@ a {
 
 a:hover {
     color: var(--primary-color);
-}
-
-.skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0;
-}
-
-.skills li {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-}
-
-.timeline {
-    position: relative;
-    padding-left: 30px;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 2px;
-    background: var(--primary-color);
-}
-
-.timeline li {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.timeline li::before {
-    content: '';
-    position: absolute;
-    left: -34px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent-color);
-}
-
-.date {
-    font-size: 0.9rem;
-    color: var(--accent-color);
-}
-
-.article-content {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.article-content h1, .article-content h2 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
