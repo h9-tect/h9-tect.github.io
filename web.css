@@ -215,34 +215,3 @@ a:hover {
     color: var(--primary-color);
     margin-bottom: 15px;
 }
-
-.article-content h3, .article-content h4, .article-content h5, .article-content h6 {
-    color: var(--accent-color);
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.article-content p {
-    margin-bottom: 15px;
-}
-
-.article-content ul, .article-content ol {
-    padding-left: 20px;
-    margin-bottom: 15px;
-}
-
-.article-content li {
-    margin-bottom: 5px;
-}
-
-.article-content code {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-family: var(--font-family-mono);
-}
-
-.article-content pre {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 5px;
